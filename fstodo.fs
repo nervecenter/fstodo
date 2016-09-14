@@ -15,13 +15,15 @@ type Task = {
 
 type ParseTaskResult =
     | Success of Task
-    | Failure
+    | Failure of ProgramResult
 
 type ProgramResult =
     | ReadError
     | WriteError
     | Success
     | ParseError
+    | TaskAddError
+    | TaskDeleteError
 
 (*
  *  File reading functions
@@ -33,12 +35,6 @@ let parseTask (str : string) : ParseTaskResult =
     | 'w' :: ' ' :: task -> Success (Working task)
     | 't' :: ' ' :: task -> Success (Todo task)
     | _ -> Failure
-
-let unwrapTask (parseResults : ParseTaskResult list) : Task list =
-
-
-let unwrapTaskList
-    
 
 let getTaskListFromFile () : Task list =
     match IO.Exists("~/.tasks") with
